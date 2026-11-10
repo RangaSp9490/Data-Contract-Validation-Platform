@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rejected Records · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Rejected Records (Quarantine)</h1><p>Every rejected row, exactly as received, with its source file, row number and all rejection reasons.</p></div>
+      <a class="btn" id="export" href="#">⇩ Export CSV</a>
+    </div>
+    <div class="card">
+      <div class="filters">
+        <div style="min-width:320px"><label>Run</label><select id="f-run"></select></div>
+        <div><label>Error type</label><select id="f-code"><option value="">All error types</option></select></div>
+        <div><label>Contract</label><select id="f-contract"></select></div>
+      </div>
+      <div id="table"><div class="empty"><span class="spinner"></span></div></div>
+    </div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/rejected.js"></script>
+</body>
+</html>

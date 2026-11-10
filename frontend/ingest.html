@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Ingestion · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Data Ingestion</h1><p>Upload a producer batch (CSV or JSON), validate it against a contract and publish the valid records.</p></div>
+    </div>
+    <div id="error"></div>
+    <div class="grid two">
+      <form class="card" id="upload-form">
+        <h2>1. Batch & contract</h2>
+        <label for="contract">Contract</label>
+        <select id="contract" required></select>
+        <div class="row">
+          <div><label for="version">Contract version</label><select id="version"></select></div>
+          <div><label for="source">Source system</label><input type="text" id="source" maxlength="100" placeholder="e.g. order-service"></div>
+        </div>
+        <label>File</label>
+        <div class="dropzone" id="drop" tabindex="0">
+          <div id="drop-text"><strong>Drop a .csv or .json file here</strong><br>or click to browse</div>
+        </div>
+        <input type="file" id="file" accept=".csv,.json" hidden>
+        <label class="check"><input type="checkbox" id="force"> Force reprocess (re-run even if this exact batch already succeeded; publishing stays idempotent)</label>
+        <button class="btn" type="submit" id="submit">Start validation</button>
+        <p class="small muted">Sample files: <span class="mono">data/samples/</span> (customers.csv first, then orders.csv, orders.json, orders_late.csv, orders_*_column.csv).</p>
+      </form>
+      <div class="card"><h2>2. Processing status</h2><div id="status"><div class="empty">No batch submitted yet.</div></div></div>
+    </div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/validation.js"></script>
+<script src="js/ingest.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "Customers",
+  "dataset_name": "customers",
+  "description": "Customer master data published by the CRM system.",
+  "owner": "crm-team",
+  "compatibility_mode": "BACKWARD",
+  "event_time_column": "updated_ts",
+  "columns": [
+    {"name": "customer_id", "data_type": "string", "is_primary_key": true, "pattern": "^CUST-\\d{5}$",
+     "description": "Stable customer identifier"},
+    {"name": "full_name", "data_type": "string", "max_length": 100},
+    {"name": "email", "data_type": "string", "normalize": "lower", "max_length": 150,
+     "pattern": "^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$"},
+    {"name": "country", "data_type": "string", "normalize": "upper", "allowed_values": ["IN", "US", "GB", "DE", "SG"]},
+    {"name": "segment", "data_type": "string", "required": false, "nullable": false, "normalize": "upper",
+     "allowed_values": ["RETAIL", "SMB", "ENTERPRISE"], "default_value": "RETAIL"},
+    {"name": "signup_ts", "data_type": "timestamp"},
+    {"name": "updated_ts", "data_type": "timestamp"}
+  ],
+  "unique_constraints": [["email"]],
+  "business_rules": [
+    {"type": "compare_columns", "name": "updated_after_signup", "left": "updated_ts", "op": ">=", "right": "signup_ts",
+     "description": "A customer cannot be updated before signing up"},
+    {"type": "not_in_future", "name": "signup_not_in_future", "column": "signup_ts", "tolerance_minutes": 5}
+  ],
+  "change_notes": "Initial version",
+  "created_by": "demo"
+}

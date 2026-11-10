@@ -1,0 +1,505 @@
+{
+  "run": {
+    "run_id": "RUN-20261110-061516-285194",
+    "status": "COMPLETED_WITH_ERRORS",
+    "contract_id": 2,
+    "contract_name": "Orders",
+    "dataset_name": "orders",
+    "contract_version": 1,
+    "contract_version_id": 2,
+    "source_file_name": "orders.csv",
+    "source_checksum": "49c499e6ac33c415bff5e9606a24028bd08d15a4f1c4115ea7a94dd8a20d36c9",
+    "source_system": "order-service",
+    "attempt": 1,
+    "force_reprocess": false,
+    "duplicate_of_run_id": null,
+    "created_at": "2026-11-10T06:15:16.340000",
+    "started_at": "2026-11-10T06:15:16.356000",
+    "ended_at": "2026-11-10T06:15:16.533000",
+    "duration_ms": 180,
+    "input_count": 100,
+    "valid_count": 90,
+    "rejected_count": 10,
+    "published_count": 90,
+    "inserted_count": 90,
+    "updated_count": 0,
+    "unchanged_count": 0,
+    "stale_skipped_count": 0,
+    "late_arriving_count": 0,
+    "schema_change_count": 2,
+    "breaking_change_count": 0,
+    "non_breaking_change_count": 2,
+    "success_rate": 90.0,
+    "failure_reason": null,
+    "transformation_summary": {
+      "columns_renamed": {},
+      "defaults_applied": {},
+      "stage_timings_ms": {
+        "parse_ms": 22.1,
+        "publish_ms": 19.1,
+        "quarantine_ms": 11.6,
+        "build_records_ms": 17.7,
+        "record_validation_ms": 62.0,
+        "schema_and_transform_ms": 30.5
+      },
+      "values_case_normalized": {
+        "currency": 8
+      },
+      "timestamps_standardized": {}
+    }
+  },
+  "schema_changes": [
+    {
+      "change_type": "NULL_VALUES_IN_NON_NULLABLE",
+      "column_name": "product_id",
+      "old_schema": {
+        "name": "product_id",
+        "nullable": false,
+        "required": true,
+        "data_type": "string",
+        "default_value": null,
+        "allowed_values": null,
+        "is_primary_key": false
+      },
+      "new_schema": {
+        "rows": 100,
+        "null_count": 1,
+        "invalid_count": 0
+      },
+      "severity": "WARNING",
+      "classification": "NON_BREAKING",
+      "explanation": "Non-nullable column 'product_id' is NULL in 1 of 100 rows; those rows are quarantined."
+    },
+    {
+      "change_type": "ALLOWED_VALUES_DRIFT",
+      "column_name": "status",
+      "old_schema": {
+        "name": "status",
+        "nullable": false,
+        "required": true,
+        "data_type": "string",
+        "default_value": null,
+        "allowed_values": [
+          "PLACED",
+          "PAID",
+          "SHIPPED",
+          "DELIVERED",
+          "CANCELLED"
+        ],
+        "is_primary_key": false
+      },
+      "new_schema": {
+        "rows": 100,
+        "null_count": 0,
+        "invalid_count": 0,
+        "unexpected_values": [
+          "LOST"
+        ]
+      },
+      "severity": "WARNING",
+      "classification": "NON_BREAKING",
+      "explanation": "Column 'status' contains 1 value(s) outside the allowed set ['PLACED', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']: ['LOST']. Affected rows are quarantined; if these values are legitimate, add them in a new contract version."
+    }
+  ],
+  "error_summary": [
+    {
+      "error_code": "BUSINESS_RULE_VIOLATION",
+      "column_name": "total_amount",
+      "count": 2,
+      "description": "Business rule failed"
+    },
+    {
+      "error_code": "BUSINESS_RULE_VIOLATION",
+      "column_name": "ship_ts",
+      "count": 1,
+      "description": "Business rule failed"
+    },
+    {
+      "error_code": "DUPLICATE_BUSINESS_EVENT",
+      "column_name": "customer_id,product_id,order_ts",
+      "count": 1,
+      "description": "Business event duplicated within the batch"
+    },
+    {
+      "error_code": "DUPLICATE_PRIMARY_KEY",
+      "column_name": "order_id",
+      "count": 1,
+      "description": "Primary key duplicated within the batch"
+    },
+    {
+      "error_code": "FOREIGN_KEY_VIOLATION",
+      "column_name": "customer_id",
+      "count": 1,
+      "description": "Referenced record does not exist"
+    },
+    {
+      "error_code": "INVALID_ALLOWED_VALUE",
+      "column_name": "status",
+      "count": 1,
+      "description": "Value is not one of the allowed values"
+    },
+    {
+      "error_code": "INVALID_TIMESTAMP",
+      "column_name": "order_ts",
+      "count": 1,
+      "description": "Value is not a valid timestamp/date"
+    },
+    {
+      "error_code": "INVALID_TYPE",
+      "column_name": "quantity",
+      "count": 1,
+      "description": "Value does not match the declared data type"
+    },
+    {
+      "error_code": "NULL_NOT_ALLOWED",
+      "column_name": "product_id",
+      "count": 1,
+      "description": "NULL value in a non-nullable column"
+    },
+    {
+      "error_code": "VALUE_BELOW_MIN",
+      "column_name": "quantity",
+      "count": 1,
+      "description": "Numeric value below the minimum"
+    }
+  ],
+  "sample_rejections": [
+    {
+      "id": 9,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 17,
+      "original_record": {
+        "status": "PAID",
+        "channel": "MOBILE",
+        "ship_ts": "",
+        "currency": "INR",
+        "order_id": "ORD-000091",
+        "order_ts": "2024-06-17T23:26:16Z",
+        "quantity": "7",
+        "product_id": "PRD-0298",
+        "unit_price": "382.45",
+        "updated_ts": "2024-06-18T19:53:19Z",
+        "customer_id": "CUST-00049",
+        "total_amount": "2687.15"
+      },
+      "error_codes": [
+        "BUSINESS_RULE_VIOLATION"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "BUSINESS_RULE_VIOLATION",
+          "column_name": "total_amount",
+          "message": "Rule 'total_matches_quantity_x_price' failed: total_amount != quantity * unit_price",
+          "observed_value": "2687.15 vs expected 2677.15"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 25,
+      "original_record": {
+        "status": "PAID",
+        "channel": "WEB",
+        "ship_ts": "",
+        "currency": "USD",
+        "order_id": "ORD-000036",
+        "order_ts": "2024-06-24T12:39:41Z",
+        "quantity": "5",
+        "product_id": "PRD-0249",
+        "unit_price": "468.38",
+        "updated_ts": "2024-06-25T02:45:33Z",
+        "customer_id": "CUST-00005",
+        "total_amount": "2341.90"
+      },
+      "error_codes": [
+        "DUPLICATE_PRIMARY_KEY"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "DUPLICATE_PRIMARY_KEY",
+          "column_name": "order_id",
+          "message": "Duplicate primary key 'ORD-000036'; first occurrence at row 12 was kept",
+          "observed_value": "ORD-000036"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 31,
+      "original_record": {
+        "status": "SHIPPED",
+        "channel": "MOBILE",
+        "ship_ts": "2024-03-14T06:25:09Z",
+        "currency": "INR",
+        "order_id": "ORD-000042",
+        "order_ts": "2024-03-16T06:25:09Z",
+        "quantity": "2",
+        "product_id": "PRD-0380",
+        "unit_price": "243.05",
+        "updated_ts": "2024-03-16T17:56:27Z",
+        "customer_id": "CUST-00044",
+        "total_amount": "486.10"
+      },
+      "error_codes": [
+        "BUSINESS_RULE_VIOLATION"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "BUSINESS_RULE_VIOLATION",
+          "column_name": "ship_ts",
+          "message": "Rule 'ship_after_order' failed: ship_ts >= order_ts",
+          "observed_value": "2024-03-14T06:25:09Z >= 2024-03-16T06:25:09Z"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 32,
+      "original_record": {
+        "status": "LOST",
+        "channel": "MOBILE",
+        "ship_ts": "",
+        "currency": "INR",
+        "order_id": "ORD-000082",
+        "order_ts": "2024-05-29T08:41:08Z",
+        "quantity": "7",
+        "product_id": "PRD-0268",
+        "unit_price": "64.27",
+        "updated_ts": "2024-05-30T05:50:09Z",
+        "customer_id": "CUST-00026",
+        "total_amount": "449.89"
+      },
+      "error_codes": [
+        "INVALID_ALLOWED_VALUE"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "INVALID_ALLOWED_VALUE",
+          "column_name": "status",
+          "message": "'status' must be one of ['PLACED', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']",
+          "observed_value": "LOST"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 33,
+      "original_record": {
+        "status": "PLACED",
+        "channel": "STORE",
+        "ship_ts": "",
+        "currency": "INR",
+        "order_id": "ORD-000049",
+        "order_ts": "2024-02-30T25:61:00",
+        "quantity": "3",
+        "product_id": "PRD-0119",
+        "unit_price": "318.29",
+        "updated_ts": "2024-03-27T03:14:13Z",
+        "customer_id": "CUST-00037",
+        "total_amount": "954.87"
+      },
+      "error_codes": [
+        "INVALID_TIMESTAMP"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "INVALID_TIMESTAMP",
+          "column_name": "order_ts",
+          "message": "'order_ts' value cannot be converted to timestamp",
+          "observed_value": "2024-02-30T25:61:00"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 51,
+      "original_record": {
+        "status": "PLACED",
+        "channel": "WEB",
+        "ship_ts": "",
+        "currency": "INR",
+        "order_id": "ORD-000064",
+        "order_ts": "2024-04-16T08:44:24Z",
+        "quantity": "2",
+        "product_id": "",
+        "unit_price": "298.87",
+        "updated_ts": "2024-04-16T15:12:18Z",
+        "customer_id": "CUST-00049",
+        "total_amount": "597.74"
+      },
+      "error_codes": [
+        "NULL_NOT_ALLOWED"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "NULL_NOT_ALLOWED",
+          "column_name": "product_id",
+          "message": "'product_id' is required to have a value (non-nullable)",
+          "observed_value": null
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 69,
+      "original_record": {
+        "status": "SHIPPED",
+        "channel": "WEB",
+        "ship_ts": "2024-05-10T20:36:29Z",
+        "currency": "USD",
+        "order_id": "ORD-000016",
+        "order_ts": "2024-05-10T20:36:29Z",
+        "quantity": "2",
+        "product_id": "PRD-0359",
+        "unit_price": "284.65",
+        "updated_ts": "2024-05-10T20:36:29Z",
+        "customer_id": "CUST-00037",
+        "total_amount": "569.30"
+      },
+      "error_codes": [
+        "DUPLICATE_BUSINESS_EVENT"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "DUPLICATE_BUSINESS_EVENT",
+          "column_name": "customer_id,product_id,order_ts",
+          "message": "Duplicate business event (customer_id, product_id, order_ts) 'CUST-00037|PRD-0359|2024-05-10T20:36:29Z'; first occurrence at row 30 was kept",
+          "observed_value": "CUST-00037|PRD-0359|2024-05-10T20:36:29Z"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 94,
+      "original_record": {
+        "status": "CANCELLED",
+        "channel": "WEB",
+        "ship_ts": "",
+        "currency": "INR",
+        "order_id": "ORD-000025",
+        "order_ts": "2024-02-18T01:19:47Z",
+        "quantity": "-8",
+        "product_id": "PRD-0401",
+        "unit_price": "429.50",
+        "updated_ts": "2024-02-18T14:40:49Z",
+        "customer_id": "CUST-00023",
+        "total_amount": "0.00"
+      },
+      "error_codes": [
+        "VALUE_BELOW_MIN",
+        "BUSINESS_RULE_VIOLATION"
+      ],
+      "error_count": 2,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "VALUE_BELOW_MIN",
+          "column_name": "quantity",
+          "message": "'quantity' must be >= 1",
+          "observed_value": "-8"
+        },
+        {
+          "error_code": "BUSINESS_RULE_VIOLATION",
+          "column_name": "total_amount",
+          "message": "Rule 'total_matches_quantity_x_price' failed: total_amount != quantity * unit_price",
+          "observed_value": "0.0 vs expected -3436.0"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 95,
+      "original_record": {
+        "status": "SHIPPED",
+        "channel": "MOBILE",
+        "ship_ts": "2024-02-04T06:16:35Z",
+        "currency": "USD",
+        "order_id": "ORD-000019",
+        "order_ts": "2024-02-02T12:37:55Z",
+        "quantity": "two",
+        "product_id": "PRD-0387",
+        "unit_price": "390.84",
+        "updated_ts": "2024-02-04T10:16:19Z",
+        "customer_id": "CUST-00010",
+        "total_amount": "390.84"
+      },
+      "error_codes": [
+        "INVALID_TYPE"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "INVALID_TYPE",
+          "column_name": "quantity",
+          "message": "'quantity' value cannot be converted to integer",
+          "observed_value": "two"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "run_id": "RUN-20261110-061516-285194",
+      "source_file": "orders.csv",
+      "source_row_number": 98,
+      "original_record": {
+        "status": "DELIVERED",
+        "channel": "WEB",
+        "ship_ts": "2024-01-31T08:07:20Z",
+        "currency": "EUR",
+        "order_id": "ORD-000017",
+        "order_ts": "2024-01-30T15:06:19Z",
+        "quantity": "8",
+        "product_id": "PRD-0357",
+        "unit_price": "489.89",
+        "updated_ts": "2024-01-31T12:03:58Z",
+        "customer_id": "CUST-99999",
+        "total_amount": "3919.12"
+      },
+      "error_codes": [
+        "FOREIGN_KEY_VIOLATION"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.484000",
+      "errors": [
+        {
+          "error_code": "FOREIGN_KEY_VIOLATION",
+          "column_name": "customer_id",
+          "message": "'customer_id' has no matching published record in customers.customer_id",
+          "observed_value": "CUST-99999"
+        }
+      ]
+    }
+  ]
+}

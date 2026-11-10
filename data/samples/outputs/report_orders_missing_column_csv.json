@@ -1,0 +1,71 @@
+{
+  "run": {
+    "run_id": "RUN-20261110-061516-63f69f",
+    "status": "FAILED",
+    "contract_id": 2,
+    "contract_name": "Orders",
+    "dataset_name": "orders",
+    "contract_version": 1,
+    "contract_version_id": 2,
+    "source_file_name": "orders_missing_column.csv",
+    "source_checksum": "70019996e2b1479ef1b4f4f7574149bd88e92ec2fa59f6cb064989293f4a9806",
+    "source_system": "order-service",
+    "attempt": 1,
+    "force_reprocess": false,
+    "duplicate_of_run_id": null,
+    "created_at": "2026-11-10T06:15:16.900000",
+    "started_at": "2026-11-10T06:15:16.900000",
+    "ended_at": "2026-11-10T06:15:16.953000",
+    "duration_ms": 44,
+    "input_count": 20,
+    "valid_count": 0,
+    "rejected_count": 0,
+    "published_count": 0,
+    "inserted_count": 0,
+    "updated_count": 0,
+    "unchanged_count": 0,
+    "stale_skipped_count": 0,
+    "late_arriving_count": 0,
+    "schema_change_count": 1,
+    "breaking_change_count": 1,
+    "non_breaking_change_count": 0,
+    "success_rate": null,
+    "failure_reason": "Blocked by 1 breaking schema change(s): MISSING_REQUIRED_COLUMN(currency). No records were published.",
+    "transformation_summary": {
+      "columns_renamed": {},
+      "defaults_applied": {},
+      "stage_timings_ms": {
+        "parse_ms": 13.3,
+        "schema_and_transform_ms": 16.5
+      },
+      "values_case_normalized": {},
+      "timestamps_standardized": {}
+    }
+  },
+  "schema_changes": [
+    {
+      "change_type": "MISSING_REQUIRED_COLUMN",
+      "column_name": "currency",
+      "old_schema": {
+        "name": "currency",
+        "nullable": false,
+        "required": true,
+        "data_type": "string",
+        "default_value": null,
+        "allowed_values": [
+          "INR",
+          "USD",
+          "EUR",
+          "GBP"
+        ],
+        "is_primary_key": false
+      },
+      "new_schema": null,
+      "severity": "CRITICAL",
+      "classification": "BREAKING",
+      "explanation": "Required column 'currency' is missing from the batch. Consumers depend on it; the batch cannot be published."
+    }
+  ],
+  "error_summary": [],
+  "sample_rejections": []
+}

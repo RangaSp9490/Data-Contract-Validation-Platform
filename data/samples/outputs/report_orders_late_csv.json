@@ -1,0 +1,54 @@
+{
+  "run": {
+    "run_id": "RUN-20261110-061517-feeab9",
+    "status": "COMPLETED",
+    "contract_id": 2,
+    "contract_name": "Orders",
+    "dataset_name": "orders",
+    "contract_version": 1,
+    "contract_version_id": 2,
+    "source_file_name": "orders_late.csv",
+    "source_checksum": "89c8ed5b03596fa9f459c336669d1c8229b5b444a0719129aed7cd037057e4fd",
+    "source_system": "order-service-replay",
+    "attempt": 1,
+    "force_reprocess": false,
+    "duplicate_of_run_id": null,
+    "created_at": "2026-11-10T06:15:17.078000",
+    "started_at": "2026-11-10T06:15:17.078000",
+    "ended_at": "2026-11-10T06:15:17.193000",
+    "duration_ms": 108,
+    "input_count": 20,
+    "valid_count": 20,
+    "rejected_count": 0,
+    "published_count": 10,
+    "inserted_count": 10,
+    "updated_count": 0,
+    "unchanged_count": 0,
+    "stale_skipped_count": 10,
+    "late_arriving_count": 20,
+    "schema_change_count": 0,
+    "breaking_change_count": 0,
+    "non_breaking_change_count": 0,
+    "success_rate": 100.0,
+    "failure_reason": null,
+    "transformation_summary": {
+      "columns_renamed": {},
+      "defaults_applied": {},
+      "stage_timings_ms": {
+        "parse_ms": 15.2,
+        "publish_ms": 7.1,
+        "quarantine_ms": 0.0,
+        "build_records_ms": 15.6,
+        "record_validation_ms": 37.8,
+        "schema_and_transform_ms": 18.3
+      },
+      "values_case_normalized": {
+        "currency": 2
+      },
+      "timestamps_standardized": {}
+    }
+  },
+  "schema_changes": [],
+  "error_summary": [],
+  "sample_rejections": []
+}

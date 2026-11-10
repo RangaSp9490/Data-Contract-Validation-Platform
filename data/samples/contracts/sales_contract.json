@@ -1,0 +1,214 @@
+{
+  "name": "Sales",
+  "dataset_name": "sales",
+  "description": "Retail sales order lines (one row per item in an order), 2017",
+  "owner": "data-team",
+  "compatibility_mode": "BACKWARD",
+  "event_time_column": "Order_Date",
+  "columns": [
+    {
+      "name": "Row_Id",
+      "data_type": "string",
+      "is_primary_key": true,
+      "pattern": "^C_[0-9]+_[0-9]+$",
+      "description": "Unique line id: C_<order id>_<line number>"
+    },
+    {
+      "name": "Order_Id",
+      "data_type": "integer",
+      "min_value": 1
+    },
+    {
+      "name": "Order_Date",
+      "data_type": "date"
+    },
+    {
+      "name": "Customer_Fname",
+      "data_type": "string",
+      "max_length": 50
+    },
+    {
+      "name": "Customer_Lname",
+      "data_type": "string",
+      "max_length": 50
+    },
+    {
+      "name": "Category_Name",
+      "data_type": "string",
+      "allowed_values": [
+        "Accessories",
+        "As Seen on  TV!",
+        "Baby",
+        "Baseball & Softball",
+        "Basketball",
+        "Book's",
+        "Books",
+        "Boxing & MMA",
+        "CDs",
+        "Cameras",
+        "Camping & Hiking",
+        "Cardio Equipment",
+        "Children's Clothing",
+        "Cleats",
+        "Computers",
+        "Consumer Electronics",
+        "Crafts",
+        "DVDs",
+        "Electronics",
+        "Fishing",
+        "Fitness Accessories",
+        "Garden",
+        "Girls' Apparel",
+        "Golf Apparel",
+        "Golf Bags & Carts",
+        "Golf Balls",
+        "Golf Gloves",
+        "Golf Shoes",
+        "Health and Beauty",
+        "Hockey",
+        "Hunting & Shooting",
+        "Indoor/Outdoor Games",
+        "Kids' Golf Clubs",
+        "Lacrosse",
+        "Men's Clothing",
+        "Men's Footwear",
+        "Men's Golf Clubs",
+        "Music",
+        "Pet Supplies",
+        "Shop By Sport",
+        "Soccer",
+        "Sporting Goods",
+        "Strength Training",
+        "Tennis & Racquet",
+        "Toys",
+        "Trade-In",
+        "Video Games",
+        "Water Sports",
+        "Women's Apparel",
+        "Women's Clothing",
+        "Women's Golf Clubs"
+      ]
+    },
+    {
+      "name": "Customer_Segment",
+      "data_type": "string",
+      "allowed_values": [
+        "Consumer",
+        "Corporate",
+        "Home Office"
+      ]
+    },
+    {
+      "name": "Order_Items",
+      "data_type": "string",
+      "max_length": 50
+    },
+    {
+      "name": "Market_Region",
+      "data_type": "string",
+      "allowed_values": [
+        "Africa",
+        "Europe",
+        "LATAM",
+        "Pacific Asia",
+        "USCA"
+      ]
+    },
+    {
+      "name": "Additional_Order_items",
+      "data_type": "string",
+      "required": false,
+      "nullable": true,
+      "max_length": 50
+    },
+    {
+      "name": "Customer_City",
+      "data_type": "string",
+      "max_length": 50
+    },
+    {
+      "name": "Customer_Country",
+      "data_type": "string",
+      "allowed_values": [
+        "Puerto Rico",
+        "United States"
+      ]
+    },
+    {
+      "name": "Customer_Id",
+      "data_type": "integer",
+      "min_value": 1
+    },
+    {
+      "name": "Customer_State",
+      "data_type": "string",
+      "normalize": "upper",
+      "pattern": "^[A-Z]{2}$",
+      "description": "2-letter US state code"
+    },
+    {
+      "name": "Customer_Zipcode",
+      "data_type": "string",
+      "nullable": true,
+      "pattern": "^[0-9]{3,5}$",
+      "description": "Leading zeros were lost in the export (00725 -> 725)"
+    },
+    {
+      "name": "Order_Region",
+      "data_type": "string",
+      "allowed_values": [
+        "Canada",
+        "Caribbean",
+        "Central Africa",
+        "Central America",
+        "Central Asia",
+        "East Africa",
+        "Eastern Asia",
+        "Eastern Europe",
+        "North Africa",
+        "Northern Europe",
+        "Oceania",
+        "South America",
+        "South Asia",
+        "Southeast Asia",
+        "Southern Africa",
+        "Southern Europe",
+        "West Africa",
+        "West Asia",
+        "Western Europe"
+      ]
+    },
+    {
+      "name": "Order_Quantity",
+      "data_type": "integer",
+      "min_value": 1,
+      "max_value": 100
+    },
+    {
+      "name": "Sales",
+      "data_type": "decimal",
+      "min_value": 0
+    },
+    {
+      "name": "Profit_Per_Order",
+      "data_type": "decimal"
+    }
+  ],
+  "unique_constraints": [],
+  "foreign_keys": [],
+  "business_rules": [
+    {
+      "type": "compare_columns",
+      "name": "profit_not_above_sales",
+      "left": "Profit_Per_Order",
+      "op": "<=",
+      "right": "Sales",
+      "description": "Profit on an order line cannot be more than its sales amount"
+    },
+    {
+      "type": "not_in_future",
+      "name": "order_not_in_future",
+      "column": "Order_Date"
+    }
+  ]
+}

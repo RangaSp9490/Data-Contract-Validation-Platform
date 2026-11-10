@@ -1,0 +1,37 @@
+{
+  "name": "Orders",
+  "dataset_name": "orders",
+  "description": "E-commerce order events published by the order service. updated_ts orders successive status events.",
+  "owner": "order-service-team",
+  "compatibility_mode": "BACKWARD",
+  "event_time_column": "updated_ts",
+  "columns": [
+    {"name": "order_id", "data_type": "string", "is_primary_key": true, "pattern": "^ORD-\\d{6,}$"},
+    {"name": "customer_id", "data_type": "string", "description": "References customers.customer_id"},
+    {"name": "product_id", "data_type": "string", "pattern": "^PRD-\\d{4}$"},
+    {"name": "quantity", "data_type": "integer", "min_value": 1, "max_value": 1000},
+    {"name": "unit_price", "data_type": "decimal", "min_value": 0, "max_value": 100000},
+    {"name": "total_amount", "data_type": "decimal", "min_value": 0},
+    {"name": "currency", "data_type": "string", "normalize": "upper", "allowed_values": ["INR", "USD", "EUR", "GBP"]},
+    {"name": "status", "data_type": "string", "normalize": "upper",
+     "allowed_values": ["PLACED", "PAID", "SHIPPED", "DELIVERED", "CANCELLED"]},
+    {"name": "order_ts", "data_type": "timestamp"},
+    {"name": "ship_ts", "data_type": "timestamp", "required": false, "nullable": true},
+    {"name": "updated_ts", "data_type": "timestamp"},
+    {"name": "channel", "data_type": "string", "required": false, "nullable": true, "normalize": "upper",
+     "allowed_values": ["WEB", "MOBILE", "STORE"]}
+  ],
+  "unique_constraints": [["customer_id", "product_id", "order_ts"]],
+  "foreign_keys": [{"column": "customer_id", "ref_dataset": "customers", "ref_column": "customer_id"}],
+  "business_rules": [
+    {"type": "product_equals", "name": "total_matches_quantity_x_price", "target": "total_amount",
+     "factors": ["quantity", "unit_price"], "tolerance": 0.01,
+     "description": "total_amount must equal quantity * unit_price (within 0.01)"},
+    {"type": "compare_columns", "name": "ship_after_order", "left": "ship_ts", "op": ">=", "right": "order_ts",
+     "description": "An order cannot ship before it was placed"},
+    {"type": "compare_columns", "name": "updated_after_order", "left": "updated_ts", "op": ">=", "right": "order_ts"},
+    {"type": "not_in_future", "name": "order_not_in_future", "column": "order_ts", "tolerance_minutes": 5}
+  ],
+  "change_notes": "Initial version",
+  "created_by": "demo"
+}

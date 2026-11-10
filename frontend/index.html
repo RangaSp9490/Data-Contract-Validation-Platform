@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Pipeline Dashboard</h1><p>All figures are computed live from the MySQL pipeline tables.</p></div>
+      <div class="row shrink"><span class="muted small" id="updated"></span>
+        <button class="btn secondary small" id="refresh">Refresh</button></div>
+    </div>
+    <div id="error"></div>
+    <div class="grid kpis" id="kpis"></div>
+    <div class="grid two">
+      <div class="card"><h2>Recent runs: valid vs rejected</h2><div id="runs-chart"></div>
+        <div class="legend"><span><i style="background:var(--ok)"></i>valid</span><span><i style="background:var(--bad)"></i>rejected</span><span><i style="background:#c3c9d6"></i>failed / skipped</span></div></div>
+      <div class="card"><h2>Top rejection reasons</h2><div id="errors-chart"></div></div>
+    </div>
+    <div class="grid two" style="margin-top:16px">
+      <div class="card"><h2>Run status</h2><div id="status-chart"></div></div>
+      <div class="card"><h2>Schema changes</h2><div id="changes-chart"></div></div>
+    </div>
+    <div class="card filters" style="margin-top:16px">
+      <div><label for="f-contract">Contract</label><select id="f-contract"></select></div>
+      <div><label for="f-from">From (UTC)</label><input type="date" id="f-from"></div>
+      <div><label for="f-to">To (UTC)</label><input type="date" id="f-to"></div>
+      <div class="row shrink" style="min-width:0">
+        <button class="btn secondary small shrink" data-range="0">Today</button>
+        <button class="btn secondary small shrink" data-range="7">7 days</button>
+        <button class="btn secondary small shrink" data-range="30">30 days</button>
+        <button class="btn secondary small shrink" id="f-reset">Reset</button></div>
+      <div class="muted small" id="filter-label" style="align-self:center"></div>
+    </div>
+    <div class="card" style="margin-top:16px"><h2>Recent pipeline executions <a href="runs.html" class="small">All runs →</a></h2>
+      <div id="recent"></div></div>
+    <div class="card" style="margin-top:16px"><h2>Daily summary <span class="small muted">UTC dates</span></h2>
+      <div id="daily"></div></div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

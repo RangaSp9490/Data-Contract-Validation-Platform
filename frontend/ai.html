@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Assistant · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>AI Assistant</h1><p>Plain-language explanations and recommendations. The AI never decides pass/fail - the rule engine's results are shown as authoritative facts.</p></div>
+    </div>
+    <div class="grid side-main">
+      <form class="card" id="ai-form">
+        <h2>Ask</h2>
+        <div id="ai-status" class="small muted"></div>
+        <label for="task">Task</label>
+        <select id="task">
+          <option value="summarize_run">Summarise a pipeline run</option>
+          <option value="explain_rejections">Explain validation failures</option>
+          <option value="explain_schema_changes">Explain compatibility / schema changes</option>
+          <option value="suggest_fixes">Suggest corrective actions</option>
+          <option value="explain_contract_version">Explain a contract version change</option>
+        </select>
+        <div id="run-field"><label for="run">Run</label><select id="run"></select></div>
+        <div id="contract-field" hidden>
+          <label for="contract">Contract</label><select id="contract"></select>
+          <label for="version">Version</label><select id="version"></select>
+        </div>
+        <button class="btn" style="margin-top:14px" id="ask">Generate explanation</button>
+        <p class="small muted">A local model (Ollama, CPU) can take 30–60 s. If it is unavailable or returns invalid output, a deterministic explanation is shown instead.</p>
+      </form>
+      <div class="card ai-out" id="output"><div class="empty">Choose a task and press Generate.</div></div>
+    </div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/ai.js"></script>
+</body>
+</html>

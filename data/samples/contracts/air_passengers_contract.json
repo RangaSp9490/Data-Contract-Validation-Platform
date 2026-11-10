@@ -1,0 +1,20 @@
+{
+  "name": "Air Passengers",
+  "dataset_name": "air_passengers",
+  "description": "Monthly international airline passengers (thousands), 1949-1960. One row per month.",
+  "owner": "analytics-team",
+  "compatibility_mode": "BACKWARD",
+  "event_time_column": null,
+  "columns": [
+    {"name": "Month", "data_type": "string", "is_primary_key": true,
+     "pattern": "^\\d{4}-(0[1-9]|1[0-2])$",
+     "description": "Year and month in YYYY-MM format (unique per row)"},
+    {"name": "Passengers", "data_type": "integer", "min_value": 0, "max_value": 100000,
+     "description": "Number of passengers in thousands"}
+  ],
+  "unique_constraints": [],
+  "foreign_keys": [],
+  "business_rules": [],
+  "change_notes": "Initial version created from AirPassengers.csv",
+  "created_by": "demo"
+}

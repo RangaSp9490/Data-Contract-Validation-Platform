@@ -1,0 +1,62 @@
+{
+  "seed": 42,
+  "orders": 100,
+  "customers": 50,
+  "anomaly_rate": 0.1,
+  "customer_anomalies": {
+    "invalid_email": [
+      51,
+      52
+    ],
+    "invalid_country": [
+      53,
+      54
+    ],
+    "null_name": [
+      55,
+      56
+    ],
+    "duplicate_primary_key": [
+      57,
+      58
+    ]
+  },
+  "order_anomalies": {
+    "null_required": [
+      51
+    ],
+    "duplicate_primary_key": [
+      25
+    ],
+    "invalid_type": [
+      95
+    ],
+    "invalid_allowed_value": [
+      32
+    ],
+    "negative_quantity": [
+      94
+    ],
+    "invalid_foreign_key": [
+      98
+    ],
+    "invalid_timestamp": [
+      33
+    ],
+    "total_mismatch": [
+      17
+    ],
+    "ship_before_order": [
+      31
+    ],
+    "duplicate_business_event": [
+      69
+    ]
+  },
+  "expected": {
+    "customers_rejected": 8,
+    "customers_valid": 50,
+    "orders_rejected": 10,
+    "orders_valid": 90
+  }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipeline Runs · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Pipeline Runs</h1><p>Every execution with its counts, duration, status and failure details. Failed runs can be retried safely.</p></div>
+      <button class="btn secondary small" id="refresh">Refresh</button>
+    </div>
+    <div class="card">
+      <div class="filters">
+        <div><label>Status</label><select id="f-status">
+          <option value="">All statuses</option><option>COMPLETED</option><option>COMPLETED_WITH_ERRORS</option>
+          <option>FAILED</option><option>SKIPPED_DUPLICATE</option><option>RUNNING</option><option>PENDING</option></select></div>
+        <div><label>Contract</label><select id="f-contract"></select></div>
+      </div>
+      <div id="table"><div class="empty"><span class="spinner"></span></div></div>
+    </div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/runs.js"></script>
+</body>
+</html>

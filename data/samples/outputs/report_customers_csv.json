@@ -1,0 +1,369 @@
+{
+  "run": {
+    "run_id": "RUN-20261110-061516-957f75",
+    "status": "COMPLETED_WITH_ERRORS",
+    "contract_id": 1,
+    "contract_name": "Customers",
+    "dataset_name": "customers",
+    "contract_version": 1,
+    "contract_version_id": 1,
+    "source_file_name": "customers.csv",
+    "source_checksum": "366d7d033059d67b1f9f1166e7e829fdbbc6ed7aea756047ec4d6b285ffac5f6",
+    "source_system": "crm",
+    "attempt": 1,
+    "force_reprocess": false,
+    "duplicate_of_run_id": null,
+    "created_at": "2026-11-10T06:15:16.124000",
+    "started_at": "2026-11-10T06:15:16.124000",
+    "ended_at": "2026-11-10T06:15:16.297000",
+    "duration_ms": 166,
+    "input_count": 58,
+    "valid_count": 50,
+    "rejected_count": 8,
+    "published_count": 50,
+    "inserted_count": 50,
+    "updated_count": 0,
+    "unchanged_count": 0,
+    "stale_skipped_count": 0,
+    "late_arriving_count": 0,
+    "schema_change_count": 2,
+    "breaking_change_count": 0,
+    "non_breaking_change_count": 2,
+    "success_rate": 86.21,
+    "failure_reason": null,
+    "transformation_summary": {
+      "columns_renamed": {},
+      "defaults_applied": {
+        "segment": 1
+      },
+      "stage_timings_ms": {
+        "parse_ms": 28.1,
+        "publish_ms": 20.2,
+        "quarantine_ms": 18.2,
+        "build_records_ms": 12.5,
+        "record_validation_ms": 38.9,
+        "schema_and_transform_ms": 28.4
+      },
+      "values_case_normalized": {},
+      "timestamps_standardized": {}
+    }
+  },
+  "schema_changes": [
+    {
+      "change_type": "NULL_VALUES_IN_NON_NULLABLE",
+      "column_name": "full_name",
+      "old_schema": {
+        "name": "full_name",
+        "nullable": false,
+        "required": true,
+        "data_type": "string",
+        "default_value": null,
+        "allowed_values": null,
+        "is_primary_key": false
+      },
+      "new_schema": {
+        "rows": 58,
+        "null_count": 2,
+        "invalid_count": 0
+      },
+      "severity": "WARNING",
+      "classification": "NON_BREAKING",
+      "explanation": "Non-nullable column 'full_name' is NULL in 2 of 58 rows; those rows are quarantined."
+    },
+    {
+      "change_type": "ALLOWED_VALUES_DRIFT",
+      "column_name": "country",
+      "old_schema": {
+        "name": "country",
+        "nullable": false,
+        "required": true,
+        "data_type": "string",
+        "default_value": null,
+        "allowed_values": [
+          "IN",
+          "US",
+          "GB",
+          "DE",
+          "SG"
+        ],
+        "is_primary_key": false
+      },
+      "new_schema": {
+        "rows": 58,
+        "null_count": 0,
+        "invalid_count": 0,
+        "unexpected_values": [
+          "XX"
+        ]
+      },
+      "severity": "WARNING",
+      "classification": "NON_BREAKING",
+      "explanation": "Column 'country' contains 2 value(s) outside the allowed set ['IN', 'US', 'GB', 'DE', 'SG']: ['XX']. Affected rows are quarantined; if these values are legitimate, add them in a new contract version."
+    }
+  ],
+  "error_summary": [
+    {
+      "error_code": "DUPLICATE_PRIMARY_KEY",
+      "column_name": "customer_id",
+      "count": 2,
+      "description": "Primary key duplicated within the batch"
+    },
+    {
+      "error_code": "INVALID_ALLOWED_VALUE",
+      "column_name": "country",
+      "count": 2,
+      "description": "Value is not one of the allowed values"
+    },
+    {
+      "error_code": "NULL_NOT_ALLOWED",
+      "column_name": "full_name",
+      "count": 2,
+      "description": "NULL value in a non-nullable column"
+    },
+    {
+      "error_code": "PATTERN_MISMATCH",
+      "column_name": "email",
+      "count": 2,
+      "description": "Text does not match the required format"
+    },
+    {
+      "error_code": "DUPLICATE_BUSINESS_EVENT",
+      "column_name": "email",
+      "count": 1,
+      "description": "Business event duplicated within the batch"
+    }
+  ],
+  "sample_rejections": [
+    {
+      "id": 1,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 51,
+      "original_record": {
+        "email": "not-an-email",
+        "country": "DE",
+        "segment": "RETAIL",
+        "full_name": "Customer 9",
+        "signup_ts": "2024-02-06T06:20:54Z",
+        "updated_ts": "2024-02-14T04:05:10Z",
+        "customer_id": "CUST-00051"
+      },
+      "error_codes": [
+        "PATTERN_MISMATCH"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "PATTERN_MISMATCH",
+          "column_name": "email",
+          "message": "'email' must match pattern ^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$",
+          "observed_value": "not-an-email"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 52,
+      "original_record": {
+        "email": "not-an-email",
+        "country": "DE",
+        "segment": "RETAIL",
+        "full_name": "Customer 25",
+        "signup_ts": "2024-05-20T16:22:17Z",
+        "updated_ts": "2024-06-11T07:56:06Z",
+        "customer_id": "CUST-00052"
+      },
+      "error_codes": [
+        "PATTERN_MISMATCH",
+        "DUPLICATE_BUSINESS_EVENT"
+      ],
+      "error_count": 2,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "PATTERN_MISMATCH",
+          "column_name": "email",
+          "message": "'email' must match pattern ^[^@\\s]+@[^@\\s]+\\.[a-z]{2,}$",
+          "observed_value": "not-an-email"
+        },
+        {
+          "error_code": "DUPLICATE_BUSINESS_EVENT",
+          "column_name": "email",
+          "message": "Duplicate business event (email) 'not-an-email'; first occurrence at row 51 was kept",
+          "observed_value": "not-an-email"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 53,
+      "original_record": {
+        "email": "customer53@example.com",
+        "country": "XX",
+        "segment": "RETAIL",
+        "full_name": "Customer 10",
+        "signup_ts": "2024-01-17T22:50:46Z",
+        "updated_ts": "2024-02-10T07:32:48Z",
+        "customer_id": "CUST-00053"
+      },
+      "error_codes": [
+        "INVALID_ALLOWED_VALUE"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "INVALID_ALLOWED_VALUE",
+          "column_name": "country",
+          "message": "'country' must be one of ['IN', 'US', 'GB', 'DE', 'SG']",
+          "observed_value": "XX"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 54,
+      "original_record": {
+        "email": "customer54@example.com",
+        "country": "XX",
+        "segment": "RETAIL",
+        "full_name": "Customer 17",
+        "signup_ts": "2024-04-02T09:08:19Z",
+        "updated_ts": "2024-04-04T18:12:04Z",
+        "customer_id": "CUST-00054"
+      },
+      "error_codes": [
+        "INVALID_ALLOWED_VALUE"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "INVALID_ALLOWED_VALUE",
+          "column_name": "country",
+          "message": "'country' must be one of ['IN', 'US', 'GB', 'DE', 'SG']",
+          "observed_value": "XX"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 55,
+      "original_record": {
+        "email": "customer55@example.com",
+        "country": "SG",
+        "segment": "RETAIL",
+        "full_name": "",
+        "signup_ts": "2024-04-09T19:48:22Z",
+        "updated_ts": "2024-05-02T13:56:24Z",
+        "customer_id": "CUST-00055"
+      },
+      "error_codes": [
+        "NULL_NOT_ALLOWED"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "NULL_NOT_ALLOWED",
+          "column_name": "full_name",
+          "message": "'full_name' is required to have a value (non-nullable)",
+          "observed_value": null
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 56,
+      "original_record": {
+        "email": "customer56@example.com",
+        "country": "IN",
+        "segment": "RETAIL",
+        "full_name": "",
+        "signup_ts": "2024-05-05T12:37:47Z",
+        "updated_ts": "2024-06-03T14:26:12Z",
+        "customer_id": "CUST-00056"
+      },
+      "error_codes": [
+        "NULL_NOT_ALLOWED"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "NULL_NOT_ALLOWED",
+          "column_name": "full_name",
+          "message": "'full_name' is required to have a value (non-nullable)",
+          "observed_value": null
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 57,
+      "original_record": {
+        "email": "dup58@example.com",
+        "country": "SG",
+        "segment": "RETAIL",
+        "full_name": "Customer 34",
+        "signup_ts": "2024-04-09T19:48:22Z",
+        "updated_ts": "2024-05-02T13:56:24Z",
+        "customer_id": "CUST-00006"
+      },
+      "error_codes": [
+        "DUPLICATE_PRIMARY_KEY"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "DUPLICATE_PRIMARY_KEY",
+          "column_name": "customer_id",
+          "message": "Duplicate primary key 'CUST-00006'; first occurrence at row 6 was kept",
+          "observed_value": "CUST-00006"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "run_id": "RUN-20261110-061516-957f75",
+      "source_file": "customers.csv",
+      "source_row_number": 58,
+      "original_record": {
+        "email": "dup59@example.com",
+        "country": "DE",
+        "segment": "RETAIL",
+        "full_name": "Customer 9",
+        "signup_ts": "2024-02-06T06:20:54Z",
+        "updated_ts": "2024-02-14T04:05:10Z",
+        "customer_id": "CUST-00030"
+      },
+      "error_codes": [
+        "DUPLICATE_PRIMARY_KEY"
+      ],
+      "error_count": 1,
+      "rejected_at": "2026-11-10T06:15:16.242000",
+      "errors": [
+        {
+          "error_code": "DUPLICATE_PRIMARY_KEY",
+          "column_name": "customer_id",
+          "message": "Duplicate primary key 'CUST-00030'; first occurrence at row 30 was kept",
+          "observed_value": "CUST-00030"
+        }
+      ]
+    }
+  ]
+}

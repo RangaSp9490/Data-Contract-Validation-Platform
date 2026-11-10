@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contracts · Data Contract Platform</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main class="main">
+    <div class="page-head">
+      <div><h1>Contract Management</h1><p>Versions are immutable: every edit creates a new version and is classified as breaking or non-breaking.</p></div>
+      <button class="btn" id="new-contract">+ New contract</button>
+    </div>
+    <div id="error"></div>
+    <div class="grid side-main">
+      <div class="card"><h2>Contracts</h2><div id="contract-list"><div class="empty"><span class="spinner"></span></div></div></div>
+      <div class="card" id="detail"><div class="empty">Select a contract, or create one.</div></div>
+    </div>
+  </main>
+</div>
+<script src="js/app.js"></script>
+<script src="js/contracts.js"></script>
+</body>
+</html>
